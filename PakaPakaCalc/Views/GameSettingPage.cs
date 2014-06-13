@@ -12,7 +12,7 @@ namespace PakaPakaCalc.Views
         {
             InitializeComponent();
 
-            var vm = new GameSettingViewModel();
+            var vm = new GameSettingViewModel(this.Navigation);
             this.BindingContext = vm;
 
             this.LabelNums.SetBinding(Label.TextProperty, 
@@ -48,13 +48,6 @@ namespace PakaPakaCalc.Views
 
             this.ButtonPlay.BindingContext = vm;
             this.ButtonPlay.SetBinding(Button.CommandProperty, GameSettingViewModel.PlayCommandName);
-
-            vm.PropertyChanged += (sender, e) =>
-            {
-                if (String.Compare(e.PropertyName, GameSettingViewModel.GameSettingsPropertyName) == 0) {
-                    Navigation.PushAsync(new PlayPage(0));
-                }
-            };
         }
     }
 }

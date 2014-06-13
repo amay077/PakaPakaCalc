@@ -11,7 +11,7 @@ namespace PakaPakaCalc.Views
         {
             InitializeComponents();
 
-            var vm = new ResultViewModel();
+            var vm = new ResultViewModel(this.Navigation);
             this.BindingContext = vm;
 
             this.ButtonNextGame.Clicked += (sender, e) => Navigation.PushAsync(new GameSettingPage());

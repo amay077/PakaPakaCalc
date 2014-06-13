@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using PakaPakaCalc.Models;
+using Xamarin.Forms;
+using PakaPakaCalc.Views;
 
 namespace PakaPakaCalc.ViewModels
 {
@@ -22,15 +24,7 @@ namespace PakaPakaCalc.ViewModels
             set { SetProperty(ref _isStarting, value, IsStartingPropertyName); }
         }
 
-        private int _finishedIndexOfQuestions = -1;
-        public static readonly string FinishedIndexOfQuestionsPropertyName = "FinishedIndexOfQuestions";
-        public int FinishedIndexOfQuestions
-        {
-            get { return _finishedIndexOfQuestions; }
-            set { SetProperty(ref _finishedIndexOfQuestions, value, FinishedIndexOfQuestionsPropertyName); }
-        }
-
-        public PlayViewModel(int indexOfQuestion)
+        public PlayViewModel(INavigation navigator, int indexOfQuestion) : base(navigator)
         {
             Run(indexOfQuestion);
         }
@@ -58,7 +52,7 @@ namespace PakaPakaCalc.ViewModels
             this.Number = "おわり";
             await Task.Delay(1000);
 
-            this.FinishedIndexOfQuestions = indexOfQuestions;
+            await this.Navigator.PushAsync(new AnswerPage(indexOfQuestions));
         }
     }
 }

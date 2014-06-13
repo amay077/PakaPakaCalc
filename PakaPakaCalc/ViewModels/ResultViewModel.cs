@@ -2,6 +2,7 @@
 using PakaPakaCalc.Models;
 using System.Linq;
 using System.Collections.Generic;
+using Xamarin.Forms;
 
 namespace PakaPakaCalc.ViewModels
 {
@@ -39,7 +40,7 @@ namespace PakaPakaCalc.ViewModels
             set { SetProperty(ref _isPassed, value, IsPassedPropertyName); }
         }
 
-        public ResultViewModel()
+        public ResultViewModel(INavigation navigator) : base(navigator)
         {
             var model = GameModel.Instance;
             this.Stats = Enumerable.Range(0, model.Settings.Nums)

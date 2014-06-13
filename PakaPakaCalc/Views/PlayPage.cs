@@ -11,7 +11,7 @@ namespace PakaPakaCalc.Views
         {
             InitializeComponent();
 
-            var vm = new PlayViewModel(indexOfQuestion);
+            var vm = new PlayViewModel(this.Navigation, indexOfQuestion);
             this.BindingContext = vm;
 
             this.LabelNumber.SetBinding(Label.TextProperty,
@@ -19,19 +19,9 @@ namespace PakaPakaCalc.Views
 
             this.LabelNumber.SetBinding(Label.FontProperty,
                 new Binding(PlayViewModel.IsStartingPropertyName, BindingMode.OneWay, 
-                    new DelegateValueConverter<bool, Font>(x => x ? Font.SystemFontOfSize(Style.FontSizeBiggest) : Font.SystemFontOfSize(Style.FontSizeBig), null)));
-
-            this.LabelNumber.SetBinding(Label.FontProperty,
-                new Binding(PlayViewModel.IsStartingPropertyName, BindingMode.OneWay, 
-                    new DelegateValueConverter<bool, Font>(x => x ? Font.SystemFontOfSize(Style.FontSizeBiggest) : Font.SystemFontOfSize(Style.FontSizeBig), null)));
-
-            vm.PropertyChanged += (sender, e) => 
-            {
-                if (String.Compare(e.PropertyName, PlayViewModel.FinishedIndexOfQuestionsPropertyName) == 0) 
-                {
-                    Navigation.PushAsync(new AnswerPage(vm.FinishedIndexOfQuestions));
-                }
-            };
+                    new DelegateValueConverter<bool, Font>(x => x ? 
+                        Font.SystemFontOfSize(Style.FontSizeBiggest) : 
+                        Font.SystemFontOfSize(Style.FontSizeBig), null)));
         }
     }
 }

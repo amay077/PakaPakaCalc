@@ -3,13 +3,14 @@ using Xamarin.Forms;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using PakaPakaCalc.Models;
+using PakaPakaCalc.Views;
 
 namespace PakaPakaCalc.ViewModels
 {
     public class AnswerViewModel : BaseViewModel
     {
         private readonly int _indexOfQuestions;
-        public AnswerViewModel(int indexOfQuestions)
+        public AnswerViewModel(INavigation navigator, int indexOfQuestions) : base(navigator)
         {
             _indexOfQuestions = indexOfQuestions;
         }
@@ -20,22 +21,6 @@ namespace PakaPakaCalc.ViewModels
         {
             get { return _answerText; }
             set { SetProperty(ref _answerText, value, AnswerTextPropertyName); }
-        }
-
-        private int _answeredIndex = -1;
-        public static readonly string AnsweredIndexPropertyName = "AnsweredIndex";
-        public int AnsweredIndex
-        {
-            get { return _answeredIndex; }
-            set { SetProperty(ref _answeredIndex, value, AnsweredIndexPropertyName); }
-        }
-
-        private bool _isFinished = false;
-        public static readonly string IsFinishedPropertyName = "IsFinished";
-        public bool IsFinished
-        {
-            get { return _isFinished; }
-            set { SetProperty(ref _isFinished, value, IsFinishedPropertyName); }
         }
 
         private ICommand _commandEnterAnswer;
@@ -55,11 +40,11 @@ namespace PakaPakaCalc.ViewModels
 
             if (_indexOfQuestions < GameModel.Instance.Settings.Nums - 1)
             {
-                this.AnsweredIndex = _indexOfQuestions;
+                this.Navigator.PushAsync(new PlayPage(_indexOfQuestions + 1));
             }
             else
             {
-                this.IsFinished = true;
+                this.Navigator.PushAsync(new ResultPage());
             }
 
         }

@@ -4,12 +4,13 @@ using System.Collections.Generic;
 using PakaPakaCalc.ViewModels;
 using PakaPakaCalc.Models;
 using Xamarin.Forms;
+using PakaPakaCalc.Views;
 
 namespace PakaPakaCalc.ViewModels
 {
     public class GameSettingViewModel : BaseViewModel
     {
-        public GameSettingViewModel()
+        public GameSettingViewModel(INavigation navigator) : base(navigator)
         {
         }
 
@@ -45,14 +46,6 @@ namespace PakaPakaCalc.ViewModels
             set { SetProperty(ref _questionDigits, value, QuestionDigitsPropertyName); }
         }
 
-        private GameSettings _gameSettings = null;
-        public static readonly string GameSettingsPropertyName = "GameSettings";
-        public GameSettings GameSettings
-        {
-            get { return _gameSettings; }
-            set { SetProperty(ref _gameSettings, value, GameSettingsPropertyName); }
-        }
-
         private Command _commandPlay;
         public const string PlayCommandName = "CommandPlay";
         public Command CommandPlay
@@ -63,7 +56,8 @@ namespace PakaPakaCalc.ViewModels
                 {
                     var settings = new GameSettings(this.QuestionDigits, this.QuestionTimes, this.Intervals, this.QuestionNum);
                     GameModel.Instance.BuildGame(settings);
-                    this.GameSettings = settings;
+
+                    this.Navigator.PushAsync(new PlayPage(0));
                 }));
             }
         }

@@ -11,7 +11,7 @@ namespace PakaPakaCalc.Views
         {
             InitializeComponent();
 
-            var vm = new AnswerViewModel(indexOfQuestions);
+            var vm = new AnswerViewModel(this.Navigation, indexOfQuestions);
             this.BindingContext = vm;
 
             this.LabelAnswer.BindingContext = vm;
@@ -32,19 +32,6 @@ namespace PakaPakaCalc.Views
             this.ButtonEnter.SetBinding(Button.CommandProperty, AnswerViewModel.CommandEnterAnswerCommandName);
             this.ButtonEnter.SetBinding(Button.IsEnabledProperty, new Binding(AnswerViewModel.AnswerTextPropertyName, BindingMode.OneWay, 
                 new DelegateValueConverter<string, bool>(x => !String.IsNullOrEmpty(x), null)));
-
-            vm.PropertyChanged += (sender, e) => 
-            {
-                if (String.Compare(e.PropertyName, AnswerViewModel.AnsweredIndexPropertyName) == 0) 
-                {
-                    Navigation.PushAsync(new PlayPage(vm.AnsweredIndex + 1));
-                }
-                else if (String.Compare(e.PropertyName, AnswerViewModel.IsFinishedPropertyName) == 0) 
-                {
-                    Navigation.PushAsync(new ResultPage());
-                }
-            };
-
         }
     }
 }

@@ -15,8 +15,9 @@ using Android.Content.PM;
 
 namespace PakaPakaCalc
 {
-    [Activity(Label = "PakaPakaCalc.Android",  MainLauncher = true, 
-        Theme = "@android:style/Theme.Holo.Light", ScreenOrientation=ScreenOrientation.Portrait)]
+    [Activity(MainLauncher = true, 
+        Theme = "@android:style/Theme.Holo.Light", 
+        ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation )]
     public class MainActivity : AndroidActivity
     {
         protected override void OnCreate(Bundle bundle)
@@ -27,6 +28,7 @@ namespace PakaPakaCalc
 
             var navPage = new NavigationPage(new GameSettingPage());
             SetPage(navPage);
+            ActionBar.Hide();
         }
 
         public override void OnBackPressed()

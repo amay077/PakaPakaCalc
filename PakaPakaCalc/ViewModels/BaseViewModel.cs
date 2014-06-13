@@ -2,11 +2,19 @@
 using System.ComponentModel;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Xamarin.Forms;
 
 namespace PakaPakaCalc.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
+        internal BaseViewModel(INavigation navigator)
+        {
+            this.Navigator = navigator;
+        }
+
+        protected INavigation Navigator { get; private set; }
+
         protected void SetProperty<U>(
             ref U backingStore, U value,
             string propertyName,
@@ -36,15 +44,6 @@ namespace PakaPakaCalc.ViewModels
 
             PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
-
-//        public event PropertyChangedEventHandler PropertyChanged;
-//        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
-//        {
-//            if (PropertyChanged != null)
-//            {
-//                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-//            }
-//        }
     }
 }
 
