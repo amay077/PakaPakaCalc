@@ -2,6 +2,7 @@
 using Xamarin.Forms;
 using PakaPakaCalc.ViewModels;
 using PakaPakaCalc.ValueConverters;
+using System.Threading.Tasks;
 
 namespace PakaPakaCalc.Views
 {
@@ -32,6 +33,23 @@ namespace PakaPakaCalc.Views
             this.ButtonEnter.SetBinding(Button.CommandProperty, AnswerViewModel.CommandEnterAnswerCommandName);
             this.ButtonEnter.SetBinding(Button.IsEnabledProperty, new Binding(AnswerViewModel.AnswerTextPropertyName, BindingMode.OneWay, 
                 new DelegateValueConverter<string, bool>(x => !String.IsNullOrEmpty(x), null)));
+
+//            this.LabelResult.SetBinding(Label.TextProperty, AnswerViewModel.Po
+
+            vm.PropertyChanged += async (sender, e) => 
+            {
+                if (String.Equals(e.PropertyName, AnswerViewModel.IsCorrectAnswerPropertyName)) {
+                    this.LabelResult.Text = vm.IsCorrectAnswer.Value ? "正解！" : "不正解";
+
+                    this.ViewResult.IsVisible = true;
+                    await Task.Delay(1000);
+                    this.ViewResult.IsVisible = false;
+
+                    if (vm.CommandNextPage.CanExecute(null)) {
+                        vm.CommandNextPage.Execute(null);
+                    }
+                }
+            };
         }
     }
 }

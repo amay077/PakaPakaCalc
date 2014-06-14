@@ -11,6 +11,8 @@ namespace PakaPakaCalc.Views
         public Button ButtonClear { get; private set; }
         public Button ButtonEnter { get; private set; }
         public Label LabelAnswer { get; private set; }
+        public Label LabelResult { get; private set; }
+        public View ViewResult { get; private set; }
 
         private void InitializeComponent()
         {
@@ -75,18 +77,48 @@ namespace PakaPakaCalc.Views
             this.ButtonEnter = CreateButton("OK");
             grid.Children.Add(this.ButtonEnter, 2, 4);
 
-            this.Content = new StackLayout
+
+            var content = new RelativeLayout
             {
                 Padding = new Thickness(Style.MarginMid),
-                Orientation = StackOrientation.Vertical,
-                Children =
-                {
-                    grid,
-                },
                 HorizontalOptions = LayoutOptions.FillAndExpand,
                 VerticalOptions = LayoutOptions.FillAndExpand,
             };
 
+            content.Children.Add(grid, 
+                Constraint.RelativeToParent(p => p.X),
+                Constraint.RelativeToParent(p => p.Y),
+                Constraint.RelativeToParent(p => p.Width),
+                Constraint.RelativeToParent(p => p.Height)
+            );
+
+            this.LabelResult = new Label
+            {
+                Text = "正解！",
+                Font = Font.SystemFontOfSize(Style.FontSizeBig),
+                HorizontalOptions = LayoutOptions.CenterAndExpand,
+                VerticalOptions = LayoutOptions.CenterAndExpand,
+            };
+
+            this.ViewResult = new StackLayout
+            {
+                Children =
+                {
+                    this.LabelResult
+                },
+                BackgroundColor = Color.Silver,
+                WidthRequest = 200d,
+                HeightRequest = 200d,
+                IsVisible = false
+            };
+
+            content.Children.Add(
+                this.ViewResult, 
+                Constraint.RelativeToParent(p => (p.Width - this.ViewResult.WidthRequest) / 2d),
+                Constraint.RelativeToParent(p => (p.Height - this.ViewResult.HeightRequest) / 2d)
+            );
+
+            this.Content = content;
         }
 
         private Button CreateButton(string text)

@@ -14,7 +14,7 @@ namespace PakaPakaCalc.ViewModels
         {
         }
 
-        private int _questionNum = 10;
+        private int _questionNum = 5;
         public static readonly string QuestionNumPropertyName = "QuestionNum";
         public int QuestionNum
         {
@@ -22,7 +22,7 @@ namespace PakaPakaCalc.ViewModels
             set { SetProperty(ref _questionNum, value, QuestionNumPropertyName); }
         }
 
-        private int _questionTimes = 10;
+        private int _questionTimes = 5;
         public static readonly string QuestionTimesPropertyName = "QuestionTimes";
         public int QuestionTimes
         {

@@ -23,6 +23,14 @@ namespace PakaPakaCalc.ViewModels
             set { SetProperty(ref _answerText, value, AnswerTextPropertyName); }
         }
 
+        private bool? _isCorrectAnswer = null;
+        public static readonly string IsCorrectAnswerPropertyName = "IsCorrectAnswer";
+        public bool? IsCorrectAnswer
+        {
+            get { return _isCorrectAnswer; }
+            set { SetProperty(ref _isCorrectAnswer, value, IsCorrectAnswerPropertyName); }
+        }
+
         private ICommand _commandEnterAnswer;
         public const string CommandEnterAnswerCommandName = "CommandEnterAnswer";
         public ICommand CommandEnterAnswer
@@ -36,8 +44,23 @@ namespace PakaPakaCalc.ViewModels
 
         private void ExecuteCommandEnterAnswer()
         {
-            var correct = GameModel.Instance.SetAnswer(_indexOfQuestions, Convert.ToInt32(_answerText));
+            var isCorrect = GameModel.Instance.SetAnswer(_indexOfQuestions, Convert.ToInt32(_answerText));
+            this.IsCorrectAnswer = isCorrect;
+        }
 
+        private ICommand _commandNextPage;
+        public const string CommandNextPageCommandName = "CommandNextPage";
+        public ICommand CommandNextPage
+        {
+            get
+            {
+                return _commandNextPage ?? (_commandNextPage = 
+                    new Command(() => ExecuteCommandNextPage()));
+            }
+        }
+
+        private void ExecuteCommandNextPage()
+        {
             if (_indexOfQuestions < GameModel.Instance.Settings.Nums - 1)
             {
                 this.Navigator.PushAsync(new PlayPage(_indexOfQuestions + 1));
