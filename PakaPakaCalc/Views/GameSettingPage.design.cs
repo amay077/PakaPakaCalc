@@ -38,7 +38,7 @@ namespace PakaPakaCalc.Views
             this.SliderNums = new Slider
             {
                 Maximum = 15d,
-                Minimum = 3d,
+                Minimum = 1d,
             };
 
             // 口数
@@ -46,7 +46,7 @@ namespace PakaPakaCalc.Views
             this.SliderTimes = new Slider
             {
                 Maximum = 15d,
-                Minimum = 1d,
+                Minimum = 3d,
             };
 
             // 桁数

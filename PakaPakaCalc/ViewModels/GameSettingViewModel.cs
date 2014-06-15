@@ -12,6 +12,19 @@ namespace PakaPakaCalc.ViewModels
     {
         public GameSettingViewModel(INavigation navigator) : base(navigator)
         {
+            LoadSetting();
+        }
+
+        private async void LoadSetting()
+        {
+            var settings = await GameModel.Instance.LoadSettings();
+            if (settings != null)
+            {
+                this.QuestionNum = settings.Nums;
+                this.Intervals = settings.Intervals;
+                this.QuestionDigits = settings.Digits;
+                this.QuestionTimes = settings.Times;
+            }
         }
 
         private int _questionNum = 5;
@@ -52,12 +65,12 @@ namespace PakaPakaCalc.ViewModels
         {
             get
             {
-                return _commandPlay ?? (_commandPlay = new Command(_ => 
+                return _commandPlay ?? (_commandPlay = new Command(async _ => 
                 {
                     var settings = new GameSettings(this.QuestionDigits, this.QuestionTimes, this.Intervals, this.QuestionNum);
-                    GameModel.Instance.BuildGame(settings);
+                    await GameModel.Instance.BuildGame(settings);
 
-                    this.Navigator.PushAsync(new PlayPage(0));
+                    await this.Navigator.PushAsync(new PlayPage(0));
                 }));
             }
         }
