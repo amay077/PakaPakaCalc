@@ -53,8 +53,21 @@ namespace PakaPakaCalc.Models
                 var nums = Enumerable.Range(0, settings.Times)
                     .Select(_ =>
                 {
+                        Predicate<int> shouldContinue = x => 
+                        {
+                            if (x == 0) {
+                                return true;
+                            }
+                            else if (x < (int)Math.Pow(10, settings.Digits - 1)) 
+                            {
+                                return true;
+                            }
+
+                            return false;
+                        };
+
                     int n;
-                    while ((n = rand.Next((int)Math.Pow(10, settings.Digits))) == 0)
+                    while (shouldContinue(n = rand.Next((int)Math.Pow(10, settings.Digits))))
                     {
                     }
                     return n;
@@ -69,12 +82,6 @@ namespace PakaPakaCalc.Models
 
         public async Task SaveSettings(GameSettings settings)
         {
-//            IFolder rootFolder = FileSystem.Current.LocalStorage;
-//            IFolder folder = await rootFolder.CreateFolderAsync("MySubFolder",
-//                CreationCollisionOption.OpenIfExists);
-//            IFile file = await folder.CreateFileAsync("answer.txt",
-//                CreationCollisionOption.ReplaceExisting);
-
             IFolder root = FileSystem.Current.LocalStorage;
             IFolder folder = await root.CreateFolderAsync(DIR_SETTING,
                 CreationCollisionOption.OpenIfExists);
