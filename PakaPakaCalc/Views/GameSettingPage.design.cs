@@ -68,9 +68,9 @@ namespace PakaPakaCalc.Views
             // 開始ボタン
             this.ButtonPlay = new Button
             {
-                Text = "Play",
-                Font = Font.SystemFontOfSize(Style.FontSizeBig),
-                VerticalOptions = LayoutOptions.End
+                Text = "はじめる",
+                Font = Font.SystemFontOfSize(Style.FontSizeLarge),
+                VerticalOptions = LayoutOptions.End,
             };
 
             var contents = new ScrollView
@@ -112,35 +112,6 @@ namespace PakaPakaCalc.Views
                     this.ButtonPlay,
                 }
             };
-
-
-
-//            this.Content = new ScrollView
-//            {
-//                Orientation = ScrollOrientation.Vertical,
-//                Content = new StackLayout
-//                {
-//                    Orientation = StackOrientation.Vertical,
-//                    Children =
-//                    {
-//                        pageTitle,
-//                        spacer,
-//                        this.LabelTimes,
-//                        this.SliderTimes,
-//                        spacer,
-//                        this.LabelDigits,
-//                        this.SliderDigits,
-//                        spacer,
-//                        this.LabelIntervals,
-//                        this.SliderIntervals,
-//                        spacer,
-//                        this.LabelNums,
-//                        this.SliderNums,
-//                    },
-//                    HorizontalOptions = LayoutOptions.FillAndExpand,
-//                    VerticalOptions = LayoutOptions.FillAndExpand,
-//                }
-//            };
         }
     }
 }

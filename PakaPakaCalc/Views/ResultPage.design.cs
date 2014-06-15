@@ -61,24 +61,24 @@ namespace PakaPakaCalc.Views
 
             this.ButtonNextGame = new Button
             {
-                Text = "Retry",
+                Text = "もう一度",
                 Font = Font.SystemFontOfSize(Style.FontSizeMid),
                 HorizontalOptions = LayoutOptions.FillAndExpand,
             };
 
-            this.ButtonEndGame = new Button
-            {
-                Text = "End",
-                Font = Font.SystemFontOfSize(Style.FontSizeMid),
-                HorizontalOptions = LayoutOptions.FillAndExpand,
-            };
+//            this.ButtonEndGame = new Button
+//            {
+//                Text = "End",
+//                Font = Font.SystemFontOfSize(Style.FontSizeMid),
+//                HorizontalOptions = LayoutOptions.FillAndExpand,
+//            };
 
             var footer = new StackLayout
             {
                 Children = 
                 {
                     this.ButtonNextGame,
-                    this.ButtonEndGame,
+//                    this.ButtonEndGame,
                 },
                 Orientation = StackOrientation.Horizontal,
                 HorizontalOptions = LayoutOptions.FillAndExpand,

@@ -16,7 +16,8 @@ namespace PakaPakaCalc.Views
             this.BindingContext = vm;
 
             this.LabelAnswer.BindingContext = vm;
-            this.LabelAnswer.SetBinding(Label.TextProperty, AnswerViewModel.AnswerTextPropertyName);
+            this.LabelAnswer.SetBinding(Label.TextProperty, new Binding(AnswerViewModel.AnswerTextPropertyName, BindingMode.OneWay, 
+                new DelegateValueConverter<string, string>(x => String.IsNullOrEmpty(x) ? "答えは？" : x, null)));
 
             foreach (var btn in this.ButtonNumbers)
             {
@@ -33,8 +34,6 @@ namespace PakaPakaCalc.Views
             this.ButtonEnter.SetBinding(Button.CommandProperty, AnswerViewModel.CommandEnterAnswerCommandName);
             this.ButtonEnter.SetBinding(Button.IsEnabledProperty, new Binding(AnswerViewModel.AnswerTextPropertyName, BindingMode.OneWay, 
                 new DelegateValueConverter<string, bool>(x => !String.IsNullOrEmpty(x), null)));
-
-//            this.LabelResult.SetBinding(Label.TextProperty, AnswerViewModel.Po
 
             vm.PropertyChanged += async (sender, e) => 
             {
