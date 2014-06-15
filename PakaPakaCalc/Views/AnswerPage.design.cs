@@ -8,7 +8,7 @@ namespace PakaPakaCalc.Views
     public partial class AnswerPage
     {
         public Button[] ButtonNumbers { get; private set; }
-        public Button ButtonClear { get; private set; }
+        public LongClickedButton ButtonClear { get; private set; }
         public Button ButtonEnter { get; private set; }
         public Label LabelAnswer { get; private set; }
         public Label LabelResult { get; private set; }
@@ -71,7 +71,7 @@ namespace PakaPakaCalc.Views
             numberButtons.AddRange(buttons);
             this.ButtonNumbers = numberButtons.ToArray();
 
-            this.ButtonClear = CreateButton("C");
+            this.ButtonClear = CreateLongTapButton("C");
             grid.Children.Add(this.ButtonClear, 1, 4);
 
             this.ButtonEnter = CreateButton("OK");
@@ -124,6 +124,16 @@ namespace PakaPakaCalc.Views
         private Button CreateButton(string text)
         {
             var btn = new Button 
+            {
+                Font = Font.SystemFontOfSize(Style.FontSizeBig),
+                Text = text
+            };
+
+            return btn;
+        }
+        private LongClickedButton CreateLongTapButton(string text)
+        {
+            var btn = new LongClickedButton 
             {
                 Font = Font.SystemFontOfSize(Style.FontSizeBig),
                 Text = text

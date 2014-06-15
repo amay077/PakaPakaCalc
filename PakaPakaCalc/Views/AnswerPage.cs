@@ -29,6 +29,13 @@ namespace PakaPakaCalc.Views
             }
 
             this.ButtonClear.Clicked += (sender, e) => vm.AnswerText = String.Empty;
+            this.ButtonClear.LongClicked += async (sender, e) => 
+            {
+                if (await this.DisplayAlert(String.Empty, "はじめにもどりますか？", "はい", "いいえ")) 
+                {
+                    await this.Navigation.PushAsync(new GameSettingPage());
+                }
+            };
 
             this.ButtonEnter.BindingContext = vm;
             this.ButtonEnter.SetBinding(Button.CommandProperty, AnswerViewModel.CommandEnterAnswerCommandName);
