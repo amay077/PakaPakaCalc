@@ -22,6 +22,7 @@ namespace PakaPakaCalc
 
             window = new UIWindow(UIScreen.MainScreen.Bounds);
 			
+            Style.Init(UIScreen.MainScreen.Bounds.Size.Width);
             window.RootViewController = new NavigationPage(new GameSettingPage()).CreateViewController();
             window.MakeKeyAndVisible();
 			
