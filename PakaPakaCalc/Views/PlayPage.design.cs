@@ -14,13 +14,6 @@ namespace PakaPakaCalc.Views
         {
             NavigationPage.SetHasNavigationBar(this, false);
 
-            var label = new Label
-            {
-                Font = Font.SystemFontOfSize(Style.FontSizeBiggest),
-                HorizontalOptions = LayoutOptions.Center,
-                VerticalOptions = LayoutOptions.Center,
-            };
-
             this.LabelNumber = new Label
             {
                 HorizontalOptions = LayoutOptions.Center,
@@ -39,7 +32,6 @@ namespace PakaPakaCalc.Views
             {
                 Children =
                 {
-                    label,
                     this.LabelNumber,
                 },
                 Orientation = StackOrientation.Vertical,

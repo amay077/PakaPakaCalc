@@ -89,7 +89,6 @@ namespace PakaPakaCalc.Views
                 };
             });
 
-//            this.ButtonEndGame.Clicked += (sender, e) => Navigation);
         }
     }
 }
