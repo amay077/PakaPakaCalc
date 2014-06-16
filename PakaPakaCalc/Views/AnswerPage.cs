@@ -37,6 +37,12 @@ namespace PakaPakaCalc.Views
                 }
             };
 
+            this.ViewResult.BindingContext = vm;
+            this.ViewResult.SetBinding(View.BackgroundColorProperty, new Binding(
+                AnswerViewModel.IsCorrectAnswerPropertyName, BindingMode.OneWay,
+                new DelegateValueConverter<bool?, Color>(x => x.HasValue && x.Value ? Color.Blue : Color.Red, null)
+            ));
+
             this.ButtonEnter.BindingContext = vm;
             this.ButtonEnter.SetBinding(Button.CommandProperty, AnswerViewModel.CommandEnterAnswerCommandName);
             this.ButtonEnter.SetBinding(Button.IsEnabledProperty, new Binding(AnswerViewModel.AnswerTextPropertyName, BindingMode.OneWay, 

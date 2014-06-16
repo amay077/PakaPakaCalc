@@ -38,6 +38,7 @@ namespace PakaPakaCalc.Views
                 VerticalOptions = LayoutOptions.CenterAndExpand,
                 RowSpacing = Style.MarginSmall,
                 ColumnSpacing = Style.MarginSmall,
+                Padding = new Thickness(Style.MarginMid),
             };
 
             // Answer label
@@ -80,7 +81,6 @@ namespace PakaPakaCalc.Views
 
             var content = new RelativeLayout
             {
-                Padding = new Thickness(Style.MarginMid),
                 HorizontalOptions = LayoutOptions.FillAndExpand,
                 VerticalOptions = LayoutOptions.FillAndExpand,
             };
@@ -95,6 +95,7 @@ namespace PakaPakaCalc.Views
             this.LabelResult = new Label
             {
                 Text = "正解！",
+                TextColor = Color.White,
                 Font = Font.SystemFontOfSize(Style.FontSizeBig),
                 HorizontalOptions = LayoutOptions.CenterAndExpand,
                 VerticalOptions = LayoutOptions.CenterAndExpand,
@@ -106,17 +107,15 @@ namespace PakaPakaCalc.Views
                 {
                     this.LabelResult
                 },
-                BackgroundColor = Color.Silver,
-                WidthRequest = 200d,
-                HeightRequest = 200d,
                 IsVisible = false
             };
 
             content.Children.Add(
                 this.ViewResult, 
-                Constraint.RelativeToParent(p => (p.Width - this.ViewResult.WidthRequest) / 2d),
-                Constraint.RelativeToParent(p => (p.Height - this.ViewResult.HeightRequest) / 2d)
-            );
+                Constraint.RelativeToParent(p => (p.Width - this.ViewResult.Width) / 2d),
+                Constraint.RelativeToParent(p => (p.Height - this.ViewResult.Height) / 2d),
+                Constraint.RelativeToParent(p => p.Width - (Style.MarginMid * 2)),
+                Constraint.Constant(Style.FontSizeBig * 2d));
 
             this.Content = content;
         }
@@ -125,7 +124,7 @@ namespace PakaPakaCalc.Views
         {
             var btn = new Button 
             {
-                Font = Font.SystemFontOfSize(Style.FontSizeBig),
+                Font = Font.SystemFontOfSize(Style.FontSizeLarge),
                 Text = text
             };
 
@@ -135,7 +134,7 @@ namespace PakaPakaCalc.Views
         {
             var btn = new LongClickedButton 
             {
-                Font = Font.SystemFontOfSize(Style.FontSizeBig),
+                Font = Font.SystemFontOfSize(Style.FontSizeLarge),
                 Text = text
             };
 
