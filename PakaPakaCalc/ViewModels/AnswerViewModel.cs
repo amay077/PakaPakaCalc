@@ -16,23 +16,20 @@ namespace PakaPakaCalc.ViewModels
         }
 
         private string _answerText = String.Empty;
-        public static readonly string AnswerTextPropertyName = "AnswerText";
         public string AnswerText
         {
             get { return _answerText; }
-            set { SetProperty(ref _answerText, value, AnswerTextPropertyName); }
+            set { SetProperty(ref _answerText, value); }
         }
 
         private bool? _isCorrectAnswer = null;
-        public static readonly string IsCorrectAnswerPropertyName = "IsCorrectAnswer";
         public bool? IsCorrectAnswer
         {
             get { return _isCorrectAnswer; }
-            set { SetProperty(ref _isCorrectAnswer, value, IsCorrectAnswerPropertyName); }
+            set { SetProperty(ref _isCorrectAnswer, value); }
         }
 
         private ICommand _commandEnterAnswer;
-        public const string CommandEnterAnswerCommandName = "CommandEnterAnswer";
         public ICommand CommandEnterAnswer
         {
             get
@@ -49,7 +46,6 @@ namespace PakaPakaCalc.ViewModels
         }
 
         private ICommand _commandNextPage;
-        public const string CommandNextPageCommandName = "CommandNextPage";
         public ICommand CommandNextPage
         {
             get

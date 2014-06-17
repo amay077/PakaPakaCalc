@@ -8,7 +8,7 @@ namespace PakaPakaCalc.Views
     public partial class AnswerPage
     {
         public Button[] ButtonNumbers { get; private set; }
-        public Button ButtonClear { get; private set; }
+        public LongClickedButton ButtonClear { get; private set; }
         public Button ButtonEnter { get; private set; }
         public Label LabelAnswer { get; private set; }
         public Label LabelResult { get; private set; }
@@ -38,6 +38,7 @@ namespace PakaPakaCalc.Views
                 VerticalOptions = LayoutOptions.CenterAndExpand,
                 RowSpacing = Style.MarginSmall,
                 ColumnSpacing = Style.MarginSmall,
+                Padding = new Thickness(Style.MarginMid),
             };
 
             // Answer label
@@ -71,7 +72,7 @@ namespace PakaPakaCalc.Views
             numberButtons.AddRange(buttons);
             this.ButtonNumbers = numberButtons.ToArray();
 
-            this.ButtonClear = CreateButton("C");
+            this.ButtonClear = CreateLongTapButton("C");
             grid.Children.Add(this.ButtonClear, 1, 4);
 
             this.ButtonEnter = CreateButton("OK");
@@ -80,7 +81,6 @@ namespace PakaPakaCalc.Views
 
             var content = new RelativeLayout
             {
-                Padding = new Thickness(Style.MarginMid),
                 HorizontalOptions = LayoutOptions.FillAndExpand,
                 VerticalOptions = LayoutOptions.FillAndExpand,
             };
@@ -95,6 +95,7 @@ namespace PakaPakaCalc.Views
             this.LabelResult = new Label
             {
                 Text = "正解！",
+                TextColor = Color.White,
                 Font = Font.SystemFontOfSize(Style.FontSizeBig),
                 HorizontalOptions = LayoutOptions.CenterAndExpand,
                 VerticalOptions = LayoutOptions.CenterAndExpand,
@@ -106,17 +107,15 @@ namespace PakaPakaCalc.Views
                 {
                     this.LabelResult
                 },
-                BackgroundColor = Color.Silver,
-                WidthRequest = 200d,
-                HeightRequest = 200d,
                 IsVisible = false
             };
 
             content.Children.Add(
                 this.ViewResult, 
-                Constraint.RelativeToParent(p => (p.Width - this.ViewResult.WidthRequest) / 2d),
-                Constraint.RelativeToParent(p => (p.Height - this.ViewResult.HeightRequest) / 2d)
-            );
+                Constraint.RelativeToParent(p => (p.Width - this.ViewResult.Width) / 2d),
+                Constraint.RelativeToParent(p => (p.Height - this.ViewResult.Height) / 2d),
+                Constraint.RelativeToParent(p => p.Width - (Style.MarginMid * 2)),
+                Constraint.Constant(Style.FontSizeBig * 2d));
 
             this.Content = content;
         }
@@ -125,7 +124,17 @@ namespace PakaPakaCalc.Views
         {
             var btn = new Button 
             {
-                Font = Font.SystemFontOfSize(Style.FontSizeBig),
+                Font = Font.SystemFontOfSize(Style.FontSizeLarge),
+                Text = text
+            };
+
+            return btn;
+        }
+        private LongClickedButton CreateLongTapButton(string text)
+        {
+            var btn = new LongClickedButton 
+            {
+                Font = Font.SystemFontOfSize(Style.FontSizeLarge),
                 Text = text
             };
 

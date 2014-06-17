@@ -9,35 +9,31 @@ namespace PakaPakaCalc.ViewModels
     public class ResultViewModel : BaseViewModel
     {
         private IEnumerable<Stat> _stats;
-        public static readonly string StatsPropertyName = "Stats";
         public IEnumerable<Stat> Stats
         {
             get { return _stats; }
-            set { SetProperty(ref _stats, value, StatsPropertyName); }
+            set { SetProperty(ref _stats, value); }
         }
 
         private int _collectCount;
-        public static readonly string CollectCountPropertyName = "CollectCount";
         public int CollectCount
         {
             get { return _collectCount; }
-            set { SetProperty(ref _collectCount, value, CollectCountPropertyName); }
+            set { SetProperty(ref _collectCount, value); }
         }
 
         private int _questionCount;
-        public static readonly string QuestionCountPropertyName = "QuestionCount";
         public int QuestionCount
         {
             get { return _questionCount; }
-            set { SetProperty(ref _questionCount, value, QuestionCountPropertyName); }
+            set { SetProperty(ref _questionCount, value); }
         }
 
         private bool _isPassed;
-        public static readonly string IsPassedPropertyName = "IsPassed";
         public bool IsPassed
         {
             get { return _isPassed; }
-            set { SetProperty(ref _isPassed, value, IsPassedPropertyName); }
+            set { SetProperty(ref _isPassed, value); }
         }
 
         public ResultViewModel(INavigation navigator) : base(navigator)

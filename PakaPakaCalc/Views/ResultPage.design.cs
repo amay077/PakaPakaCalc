@@ -44,6 +44,7 @@ namespace PakaPakaCalc.Views
             {
                 HorizontalOptions = LayoutOptions.FillAndExpand,
                 VerticalOptions = LayoutOptions.FillAndExpand,
+                RowHeight = (int)Style.FontSizeMid * 2,
             };
 
             var content = new StackLayout
@@ -61,15 +62,8 @@ namespace PakaPakaCalc.Views
 
             this.ButtonNextGame = new Button
             {
-                Text = "Retry",
-                Font = Font.SystemFontOfSize(Style.FontSizeMid),
-                HorizontalOptions = LayoutOptions.FillAndExpand,
-            };
-
-            this.ButtonEndGame = new Button
-            {
-                Text = "End",
-                Font = Font.SystemFontOfSize(Style.FontSizeMid),
+                Text = "もう一度",
+                Font = Font.SystemFontOfSize(Style.FontSizeLarge),
                 HorizontalOptions = LayoutOptions.FillAndExpand,
             };
 
@@ -78,7 +72,6 @@ namespace PakaPakaCalc.Views
                 Children = 
                 {
                     this.ButtonNextGame,
-                    this.ButtonEndGame,
                 },
                 Orientation = StackOrientation.Horizontal,
                 HorizontalOptions = LayoutOptions.FillAndExpand,

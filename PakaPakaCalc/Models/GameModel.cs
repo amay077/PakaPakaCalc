@@ -1,11 +1,17 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using PCLStorage;
+using Newtonsoft.Json;
 
 namespace PakaPakaCalc.Models
 {
     public class GameModel
     {
+        private const string FILE_SETTING = "app.settings";
+        private const string DIR_SETTING = "settings";
+
         private static GameModel _instance = null;
         public static GameModel Instance
         {
@@ -34,7 +40,7 @@ namespace PakaPakaCalc.Models
         private List<int> _answerList;
         private readonly List<int> _correctAnswerList = new List<int>();
 
-        public void BuildGame(GameSettings settings) 
+        public Task BuildGame(GameSettings settings) 
         {
             this.Settings = settings;
 
@@ -47,8 +53,21 @@ namespace PakaPakaCalc.Models
                 var nums = Enumerable.Range(0, settings.Times)
                     .Select(_ =>
                 {
+                        Predicate<int> shouldContinue = x => 
+                        {
+                            if (x == 0) {
+                                return true;
+                            }
+                            else if (x < (int)Math.Pow(10, settings.Digits - 1)) 
+                            {
+                                return true;
+                            }
+
+                            return false;
+                        };
+
                     int n;
-                    while ((n = rand.Next((int)Math.Pow(10, settings.Digits))) == 0)
+                    while (shouldContinue(n = rand.Next((int)Math.Pow(10, settings.Digits))))
                     {
                     }
                     return n;
@@ -57,6 +76,42 @@ namespace PakaPakaCalc.Models
                 _numbersList.Add(arrNums);
                 _correctAnswerList.Add(arrNums.Sum());
             }
+
+            return SaveSettings(settings);
+        }
+
+        public async Task SaveSettings(GameSettings settings)
+        {
+            IFolder root = FileSystem.Current.LocalStorage;
+            IFolder folder = await root.CreateFolderAsync(DIR_SETTING,
+                CreationCollisionOption.OpenIfExists);
+            IFile file = await folder.CreateFileAsync(FILE_SETTING,
+                CreationCollisionOption.ReplaceExisting);
+
+            string json = JsonConvert.SerializeObject(settings);
+
+            await file.WriteAllTextAsync(json);
+        }
+
+        public async Task<GameSettings> LoadSettings()
+        {
+
+            IFolder root = FileSystem.Current.LocalStorage;
+            if (await root.CheckExistsAsync(DIR_SETTING) == ExistenceCheckResult.NotFound)
+            {
+                return null;
+            }
+
+            IFolder folder = await root.GetFolderAsync(DIR_SETTING);
+            if (await folder.CheckExistsAsync(FILE_SETTING) == ExistenceCheckResult.NotFound)
+            {
+                return null;
+            }
+
+            var file = await folder.GetFileAsync(FILE_SETTING);
+            var json = await file.ReadAllTextAsync();
+
+            return JsonConvert.DeserializeObject<GameSettings>(json);
         }
 
         public int[] GetNumbers(int indexOfQuestions)

@@ -17,7 +17,7 @@ namespace PakaPakaCalc.ViewModels
 
         protected void SetProperty<U>(
             ref U backingStore, U value,
-            string propertyName,
+            [CallerMemberName] string propertyName = null,
             Action onChanged = null)
         {
             if (EqualityComparer<U>.Default.Equals(backingStore, value))

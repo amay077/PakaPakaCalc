@@ -11,17 +11,16 @@ namespace PakaPakaCalc.Views
         {
             InitializeComponent();
 
-            var vm = new PlayViewModel(this.Navigation, indexOfQuestion);
-            this.BindingContext = vm;
+            this.BindingContext = new PlayViewModel(this.Navigation, indexOfQuestion);;
 
-            this.LabelNumber.SetBinding(Label.TextProperty,
-                new Binding(PlayViewModel.NumberPropertyName, BindingMode.OneWay));
+            this.LabelNumber.SetBinding<PlayViewModel>(Label.TextProperty, vm => vm.Number,
+                BindingMode.OneWay);
 
-            this.LabelNumber.SetBinding(Label.FontProperty,
-                new Binding(PlayViewModel.IsStartingPropertyName, BindingMode.OneWay, 
+            this.LabelNumber.SetBinding<PlayViewModel>(Label.FontProperty, vm => vm.IsStarting,
+                BindingMode.OneWay,
                     new DelegateValueConverter<bool, Font>(x => x ? 
                         Font.SystemFontOfSize(Style.FontSizeBiggest) : 
-                        Font.SystemFontOfSize(Style.FontSizeBig), null)));
+                        Font.SystemFontOfSize(Style.FontSizeBig), null));
         }
     }
 }

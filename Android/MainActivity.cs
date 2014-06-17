@@ -12,6 +12,8 @@ using Xamarin.Forms;
 using PakaPakaCalc.Views;
 using PakaPakaCalc.ViewModels;
 using Android.Content.PM;
+using Android.Graphics;
+using Android.Util;
 
 namespace PakaPakaCalc
 {
@@ -24,7 +26,14 @@ namespace PakaPakaCalc
         {
             base.OnCreate(bundle);
 
+            Rect rc = new Rect();
+            WindowManager.DefaultDisplay.GetRectSize(rc);
+            DisplayMetrics m = new DisplayMetrics();
+            WindowManager.DefaultDisplay.GetMetrics(m);
+
+            Style.Init(WindowManager.DefaultDisplay.Width / m.ScaledDensity);
             Xamarin.Forms.Forms.Init(this, bundle);
+
 
             var navPage = new NavigationPage(new GameSettingPage());
             SetPage(navPage);
