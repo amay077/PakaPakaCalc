@@ -9,19 +9,17 @@ namespace PakaPakaCalc.ViewModels
     public class PlayViewModel : BaseViewModel
     {
         private string _number = String.Empty;
-        public static readonly string NumberPropertyName = "Number";
         public string Number
         {
             get { return _number; }
-            set { SetProperty(ref _number, value, NumberPropertyName); }
+            set { SetProperty(ref _number, value); }
         }
 
         private bool _isStarting = false;
-        public static readonly string IsStartingPropertyName = "IsStarting";
         public bool IsStarting
         {
             get { return _isStarting; }
-            set { SetProperty(ref _isStarting, value, IsStartingPropertyName); }
+            set { SetProperty(ref _isStarting, value); }
         }
 
         public PlayViewModel(INavigation navigator, int indexOfQuestion) : base(navigator)

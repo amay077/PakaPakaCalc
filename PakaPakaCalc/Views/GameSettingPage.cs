@@ -12,42 +12,33 @@ namespace PakaPakaCalc.Views
         {
             InitializeComponent();
 
-            var vm = new GameSettingViewModel(this.Navigation);
-            this.BindingContext = vm;
+            this.BindingContext = new GameSettingViewModel(this.Navigation);;
 
-            this.LabelNums.SetBinding(Label.TextProperty, 
-                new Binding(GameSettingViewModel.QuestionNumPropertyName, BindingMode.OneWay, 
-                    null, null, "問題数:{0}"));
+            this.LabelNums.SetBinding<GameSettingViewModel>(Label.TextProperty, vm => vm.QuestionNum, 
+                BindingMode.OneWay, null, "問題数:{0}");
 
-            this.SliderNums.SetBinding(Slider.ValueProperty,
-                new Binding(GameSettingViewModel.QuestionNumPropertyName, BindingMode.TwoWay, 
-                    new DelegateValueConverter<int, double>(Convert.ToDouble, Convert.ToInt32)));
+            this.SliderNums.SetBinding<GameSettingViewModel>(Slider.ValueProperty, vm => vm.QuestionNum,
+                BindingMode.TwoWay, new DelegateValueConverter<int, double>(Convert.ToDouble, Convert.ToInt32));
 
-            this.LabelTimes.SetBinding(Label.TextProperty, 
-                new Binding(GameSettingViewModel.QuestionTimesPropertyName, BindingMode.OneWay, 
-                    null, null, "口数:{0}"));
+            this.LabelTimes.SetBinding<GameSettingViewModel>(Label.TextProperty, vm => vm.QuestionTimes,
+                BindingMode.OneWay, null, "口数:{0}");
 
-            this.SliderTimes.SetBinding(Slider.ValueProperty,
-                new Binding(GameSettingViewModel.QuestionTimesPropertyName, BindingMode.TwoWay, 
-                    new DelegateValueConverter<int, double>(Convert.ToDouble, Convert.ToInt32)));
+            this.SliderTimes.SetBinding<GameSettingViewModel>(Slider.ValueProperty, vm => vm.QuestionTimes,
+                BindingMode.TwoWay, new DelegateValueConverter<int, double>(Convert.ToDouble, Convert.ToInt32));
 
-            this.LabelDigits.SetBinding(Label.TextProperty, 
-                new Binding(GameSettingViewModel.QuestionDigitsPropertyName, BindingMode.OneWay, 
-                    null, null, "桁数:{0}"));
+            this.LabelDigits.SetBinding<GameSettingViewModel>(Label.TextProperty, vm => vm.QuestionDigits,
+                BindingMode.OneWay, null, "桁数:{0}");
 
-            this.SliderDigits.SetBinding(Slider.ValueProperty,
-                new Binding(GameSettingViewModel.QuestionDigitsPropertyName, BindingMode.TwoWay, 
-                    new DelegateValueConverter<int, double>(Convert.ToDouble, Convert.ToInt32)));
+            this.SliderDigits.SetBinding<GameSettingViewModel>(Slider.ValueProperty, vm => vm.QuestionDigits,
+                BindingMode.TwoWay, new DelegateValueConverter<int, double>(Convert.ToDouble, Convert.ToInt32));
 
-            this.LabelIntervals.SetBinding(Label.TextProperty, 
-                new Binding(GameSettingViewModel.IntervalsPropertyName, BindingMode.OneWay, 
-                    null, null, "間隔:{0:0.0}秒"));
+            this.LabelIntervals.SetBinding<GameSettingViewModel>(Label.TextProperty, vm => vm.Intervals,
+                BindingMode.OneWay, null, "間隔:{0:0.0}秒");
 
-            this.SliderIntervals.SetBinding(Slider.ValueProperty,
-                new Binding(GameSettingViewModel.IntervalsPropertyName, BindingMode.TwoWay));
+            this.SliderIntervals.SetBinding<GameSettingViewModel>(Slider.ValueProperty, vm => vm.Intervals,
+                BindingMode.TwoWay);
 
-            this.ButtonPlay.BindingContext = vm;
-            this.ButtonPlay.SetBinding(Button.CommandProperty, GameSettingViewModel.PlayCommandName);
+            this.ButtonPlay.SetBinding<GameSettingViewModel>(Button.CommandProperty, vm => vm.CommandPlay);
         }
     }
 }

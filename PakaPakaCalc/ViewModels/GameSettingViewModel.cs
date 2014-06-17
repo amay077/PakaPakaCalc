@@ -28,39 +28,34 @@ namespace PakaPakaCalc.ViewModels
         }
 
         private int _questionNum = 5;
-        public static readonly string QuestionNumPropertyName = "QuestionNum";
         public int QuestionNum
         {
             get { return _questionNum; }
-            set { SetProperty(ref _questionNum, value, QuestionNumPropertyName); }
+            set { SetProperty(ref _questionNum, value); }
         }
 
         private int _questionTimes = 5;
-        public static readonly string QuestionTimesPropertyName = "QuestionTimes";
         public int QuestionTimes
         {
             get { return _questionTimes; }
-            set { SetProperty(ref _questionTimes, value, QuestionTimesPropertyName); }
+            set { SetProperty(ref _questionTimes, value); }
         }
 
         private double _intervals = 1d;
-        public static readonly string IntervalsPropertyName = "Intervals";
         public double Intervals
         {
             get { return _intervals; }
-            set { SetProperty(ref _intervals, value, IntervalsPropertyName); }
+            set { SetProperty(ref _intervals, value); }
         }
 
         private int _questionDigits = 1;
-        public static readonly string QuestionDigitsPropertyName = "QuestionDigits";
         public int QuestionDigits
         {
             get { return _questionDigits; }
-            set { SetProperty(ref _questionDigits, value, QuestionDigitsPropertyName); }
+            set { SetProperty(ref _questionDigits, value); }
         }
 
         private Command _commandPlay;
-        public const string PlayCommandName = "CommandPlay";
         public Command CommandPlay
         {
             get
